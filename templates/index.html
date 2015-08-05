@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            namespace = '/test'; 
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.on('message', function(msg) {
+              $('#message').text($('#message').text() + msg.data);
+            });
+        });
+    </script>
+</head>
+<body>
+  <p id="message"></p>
+</body>
+</html>
