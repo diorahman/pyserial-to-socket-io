@@ -4,17 +4,22 @@
   <title>Flask-SocketIO Test</title>
 </head>
 <body>
-  <p id="message"></p>
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+  <input id="username">
+  <input id="password">
+  <p id="debug"></p>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
   <script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-      var namespace = '/test'; 
-      var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
-      socket.on('message', function(msg) {
-        $('#message').text($('#message').text() + msg.data);
-      });
+    var namespace = '/test'; 
+    var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+    socket.on('message', function(msg) {
+      document.getElementById(document.activeElement.id).value += msg.data;
     });
+    [].slice.call(document.querySelectorAll('input'))
+      .map(function(input){
+        input.addEventListener('mouseup', function() {
+          document.getElementById('debug').innerHTML = document.activeElement.id;
+        }, false)
+      });
   </script>
 </body>
 </html>
